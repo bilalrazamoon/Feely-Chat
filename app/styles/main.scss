@@ -1,0 +1,28 @@
+/************************************
+ *
+ *  Main Styles to compile. Here only @imports!
+ *
+ ************************************/
+
+@import "_variables";
+@import "_fonts";
+@import "../../bower_components/ionic/scss/ionic";
+
+/**
+ * LAYOUT
+ */
+
+@import "layout/layout";
+
+
+/**
+ * MENU
+ */
+
+@import "menu/menu";
+
+/**
+ * VIEWS
+ */
+
+@import "views/home";

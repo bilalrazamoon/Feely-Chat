@@ -1,0 +1,13 @@
+{
+  "name": "FeelyChat",
+  "author": "Bilal Raza <hafizbilal112@gmail.com>",
+  "private": "true",
+  "devDependencies": {},
+  "dependencies": {
+    "ionic": "~1.1.0",
+    "angular": "~1.4.3"
+  },
+  "resolutions": {
+    "angular": "1.3.17"
+  }
+}
