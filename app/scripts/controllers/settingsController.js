@@ -7,7 +7,7 @@
  * # SettingsController
  */
 angular.module('FeelyChat')
-  .controller('SettingsController', function($scope) {
+  .controller('SettingsController', function ($scope) {
 
     // do something with $scope
 

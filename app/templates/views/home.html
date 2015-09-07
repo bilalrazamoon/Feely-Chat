@@ -1,19 +1,31 @@
-<ion-view>
-    <ion-header-bar align-title="center" class="bar-positive">
+<ion-view view-title="Chats">
+  <ion-nav-buttons side="left">
     <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
-        <h1 class="title">Feely Chat</h1>
-    </ion-header-bar>
+  </ion-nav-buttons>
 
-    <ion-content>
-        <ion-refresher
-            pulling-text="Pull to refresh..."
-            on-refresh="fetchRandomText()">
-        </ion-refresher>
-        <div class="loader" ng-if="!myHTML">
-            <ion-spinner></ion-spinner>
-        </div>
-        <div class="content" ng-bind-html="myHTML">
-        </div>
-    </ion-content>
+  <ion-content>
+    <!--<ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="fetchRandomText()">
+    </ion-refresher>-->
+    <div class="loader" ng-if="!groups">
+      <ion-spinner></ion-spinner>
+    </div>
+    <ion-list>
+      <ion-item class="item-avatar-left" ng-repeat="(key,group) in groups" ui-sref="app.chat({id:key})">
+        <img ng-src="{{group.users[group.lastMessage.from].picture.thumb}}" alt=""/>
+        <h2>{{group.users[group.lastMessage.from].name}}</h2>
+        <span class="item-note" ng-if="group.lastMessage">{{group.lastMessage.time}}</span>
+        <p ng-if="group.lastMessage">{{group.lastMessage.text}}</p>
+      </ion-item>
+      <!--<ion-item class="item-avatar-left" ng-repeat="g in groups track by $index" ui-sref="app.chat({id:g.$id})">
+        <img ng-src="{{g.user.picture.thumb}}" alt=""/>
+        &lt;!&ndash;<img ng-src="{{g.lastMessage[0].image?g.lastMessage[0].image:''}}" alt=""/>&ndash;&gt;
+        <h2>{{g.user.name}}</h2>
+        <span class="item-note">{{g.lastMessage[0].text?g.lastMessage[0].time:null}}</span>
+        <p>{{g.lastMessage[0].text?g.lastMessage[0].text:null}}</p>
+      </ion-item>-->
+    </ion-list>
+  </ion-content>
 
 </ion-view>

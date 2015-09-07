@@ -1,0 +1,21 @@
+<ion-view view-title="Chats">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon icon ion-navicon" menu-toggle="left"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <ion-list>
+      <ion-item
+        style="border: none"
+        ng-class="{'item-avatar-left':message.from!=userId,'item-avatar-right':message.from==userId}"
+        ng-repeat="message in chat.messages track by $index">
+        <img ng-src="{{chat.users[message.from].picture.thumb}}" alt=""/>
+        <h2 ng-class="{'text-left':message.from!=userId,'text-right':message.from==userId}">
+          {{chat.users[message.from].name}}
+        </h2>
+        <p ng-class="{'text-left':message.from!=userId,'text-right':message.from==userId}">{{message.text}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+
+</ion-view>

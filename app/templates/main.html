@@ -1,16 +1,19 @@
 <ion-side-menus>
   <!-- Center content -->
   <ion-side-menu-content>
+    <ion-nav-bar class="bar-royal"></ion-nav-bar>
     <ion-nav-view name="viewContent"></ion-nav-view>
   </ion-side-menu-content>
 
   <!-- Left menu -->
   <ion-side-menu side="left" class="side-menu">
-    <ion-content class="has-header">
+    <ion-content>
       <div class="list">
-        <a menu-close class="item" ui-sref-active="active" ui-sref="app.home" ng-repeat="u in users">
-          <i class="icon ion-home"></i>
-          Home
+        <a menu-close class="item item-avatar-left" ng-repeat="user in friends">
+          <img ng-src="{{user.picture.thumb}}" alt=""/>
+          <!--<h2>{{getName(u.name)}}</h2>-->
+          <h2>{{user.name}}</h2>
+          <p>{{user.email}}</p>
         </a>
       </div>
     </ion-content>

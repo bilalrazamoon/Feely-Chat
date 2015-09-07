@@ -1,6 +1,6 @@
 'use strict';
 
-var appName = 'Walle';
+var appName = 'FeelyChat';
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
@@ -22,10 +22,12 @@ var ripple = require('ripple-emulator');
 var args = require('yargs')
   .alias('e', 'emulate')
   .alias('b', 'build')
+  .alias('o', 'open')
   .alias('r', 'run')
   // remove all debug messages (console.logs, alerts etc) from release build
   .alias('release', 'strip-debug')
   .default('build', false)
+  .default('open', false)
   .default('port', 9000)
   .default('strip-debug', false)
   .argv;
@@ -34,6 +36,7 @@ var build = !!(args.build || args.emulate || args.run);
 var emulate = args.emulate;
 var run = args.run;
 var port = args.port;
+var isOpen = args.open;
 var stripDebug = !!args.stripDebug;
 var targetDir = path.resolve(build ? 'www' : '.tmp');
 
@@ -74,7 +77,8 @@ gulp.task('styles', function () {
       beep();
     });
 
-  var styleStream = gulp.src(require('./style.json'))
+  var style = require('./style.json');
+  var styleStream = gulp.src(style)
     .pipe(plugins.cached('style-cache'))
     //.pipe(plugins.csslint())
     //.pipe(plugins.csslint.reporter())
@@ -84,7 +88,7 @@ gulp.task('styles', function () {
       beep();
     });
 
-  return streamqueue({objectMode: true}, styleStream, sassStream)
+  return streamqueue({objectMode: true}, style ? styleStream : '', sassStream)
     .on('error', plugins.sass.logError)
     .pipe(plugins.autoprefixer('last 1 Chrome version', 'last 3 iOS versions', 'last 3 Android versions'))
     .pipe(plugins.concat('main.css'))
@@ -140,15 +144,6 @@ gulp.task('fonts', function () {
     .src(['app/fonts/*.*', 'bower_components/ionic/release/fonts/*.*'])
 
     .pipe(gulp.dest(path.join(targetDir, 'fonts')))
-
-    .on('error', errorHandler);
-});
-
-
-// copy templates
-gulp.task('templates', function () {
-  return gulp.src('app/templates/**/*.*')
-    .pipe(gulp.dest(path.join(targetDir, 'templates')))
 
     .on('error', errorHandler);
 });
@@ -251,7 +246,8 @@ gulp.task('serve', function () {
     })
     .use(express.static(targetDir))
     .listen(port);
-  open('http://localhost:' + port + '/');
+  if (isOpen)
+    open('http://localhost:' + port + '/');
 });
 
 // ionic emulate wrapper
