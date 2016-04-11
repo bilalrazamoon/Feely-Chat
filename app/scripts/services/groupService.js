@@ -10,7 +10,7 @@ angular.module('FeelyChat')
   .factory('GroupService', function ($window, FirebaseURL, $firebaseArray, $firebaseObject, $rootScope) {
 
     var groups = {};
-    var userId = $rootScope.userId.$id;
+    var userId = $rootScope.user.$id;
     var chatsRef = new Firebase(FirebaseURL + '/chats');
     var userGroupsRef = new Firebase(FirebaseURL + '/users/' + userId + '/groups');
     var usersRef = new Firebase(FirebaseURL + '/users');

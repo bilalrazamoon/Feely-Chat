@@ -7,9 +7,10 @@
  * # UserService
  */
 angular.module('FeelyChat')
-  .factory('UsersService', function ($window, FirebaseURL, $firebaseArray, $firebaseObject, $rootScope) {
-    var currentUserId = $rootScope.userId.$id,
+  .factory('UsersService', function ($window, FirebaseURL, $firebaseArray, $firebaseObject, $rootScope, $log) {
+    var currentUserId = $rootScope.user.$id,
       usersRef = new Firebase(FirebaseURL + '/users'),
+      groupsRef = new Firebase(FirebaseURL + '/groups/'),
       friends = {};
     return {
       getAll: function () {
@@ -33,13 +34,24 @@ angular.module('FeelyChat')
         var userIds = $firebaseObject(query);
         $firebaseArray(query).$watch(function (snap) {
           if (snap.event == 'child_added') {
-            if(userIds[snap.key] === true)
+            if (userIds[snap.key] === true)
               friends[snap.key] = $firebaseObject(usersRef.child(snap.key));
           } else if (snap.event == 'child_removed') {
             delete friends[snap.key];
           }
         });
         return friends;
+      },
+      startChat: function (userId) {
+        var query = groupsRef
+          .orderByChild("type")
+          .equalTo("oto")
+          .orderByChild("members")
+          .equalTo(userId);
+        $firebaseArray(query).$loaded()
+          .then(function (data) {
+            $log.log(data)
+          });
       }
     };
   });

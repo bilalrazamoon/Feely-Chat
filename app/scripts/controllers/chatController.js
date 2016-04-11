@@ -7,9 +7,9 @@
  * # ChatController
  */
 angular.module('FeelyChat')
-  .controller('ChatController', function ($scope, $stateParams, GroupService, ChatService) {
+  .controller('ChatController', function ($scope, $stateParams, GroupService, ChatService, $rootScope) {
     var chatId = $stateParams.id;
-    $scope.userId='001-user';
+    $scope.userId=$rootScope.user.$id;
     $scope.chat = ChatService.get(chatId,10);
 
   });

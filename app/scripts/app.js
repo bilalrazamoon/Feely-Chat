@@ -13,7 +13,7 @@
 angular.module('FeelyChat', ['ionic', 'ngCordova', 'firebase'])
 
   .run(function ($rootScope,$ionicPlatform) {
-    $rootScope.userId={$id:'001-user'};
+    $rootScope.user={$id:'001-user'};
     $ionicPlatform.ready(function () {
       // save to use plugins here
     });

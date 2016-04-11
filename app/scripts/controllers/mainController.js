@@ -12,5 +12,6 @@ angular.module('FeelyChat')
     console.log($scope.friends);
     $scope.getName= function (n) {
       //return n.split(" ")[1];
-    }
+    };
+    $scope.startChat=UsersService.startChat;
   });

@@ -9,7 +9,7 @@
   <ion-side-menu side="left" class="side-menu">
     <ion-content>
       <div class="list">
-        <a menu-close class="item item-avatar-left" ng-repeat="user in friends">
+        <a menu-close class="item item-avatar-left" ng-repeat="user in friends" ng-click="startChat(user.$id)">
           <img ng-src="{{user.picture.thumb}}" alt=""/>
           <!--<h2>{{getName(u.name)}}</h2>-->
           <h2>{{user.name}}</h2>

@@ -8,7 +8,5 @@
  */
 angular.module('FeelyChat')
   .controller('SettingsController', function ($scope) {
-
     // do something with $scope
-
   });
